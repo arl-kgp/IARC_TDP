@@ -45,7 +45,7 @@ Gazebo, an open source robotics simulator is used to simulate the robot along wi
 the mathematical, physical and visualization model. It also emulates the environment 
 with the physics and other interactive robots. We have make ROS plugin for the behaviour 
 of i-robots, whereas the quadcopter model,
-is made on top of hector\_gazebo, supported by jBsim, ArdoCopter, rotorSim, mavros,
+is made on top of hector\_gazebo, supported by JSBSim, ArduCopter, RotorS, mavros,
 ardupilot\_sitl\_gazebo plugin.
 
 \begin{center}\includegraphics[scale=0.5]{image23} \\
@@ -63,7 +63,7 @@ an EKF/UKF state estimator that gives the estimated quadcopter pose.
 \subsection{Grid Localization}
 \subsubsection{Detecting the Grid}
 \begin{itemize}
-  \item The image is acquired from the on-board cameras on the Quadcopter.
+  \item The image is acquired from the on-board cameras on the quadcopter.
   \item The lines in the image are first filtered out and isolated by using segmentation, implemented using the Canny edge detector. 
     \begin{center}\includegraphics{image25} \\
     \textbf{Figure 3. Image before canny is applied.}\end{center}
@@ -194,7 +194,7 @@ where the inputs are mapped by:
 
 \[\left[ \begin{array}{c} p \\ q \\ r \end{array} \right] = \begin{bmatrix} c\theta & 0 & -c\phi s\theta \\ 0 & 1 & s\phi \\ s\theta & 0 & c\phi c\theta \end{bmatrix} \times \left[ \begin{array}{c} \dot{\phi} \\ \dot{\theta} \\ \dot{\psi} \end{array} \right]\] \\
 
-\subsubsection*{Angular velocity components in quadrotor frame}
+\subsubsection*{Angular velocity components in quadcopter frame}
 \[ r_T(t) = \left[\begin{array}{c} x(t) \\ y(t) \\ z(t) \\ \psi(t)  \end{array} \right] \]
 \[ e_p = r_T(t) - r \]
 \[ e_v = \dot{r}_T(t) - \dot{r}
@@ -219,7 +219,7 @@ Linearized dynamics at the hover configuration
 \\
 
 Hence,
-\[ I\left[\begin{array}{0} \dot{p} \\ \dot{q} \\ \dot{r} \end{array}\right] = \left[\begin{array}{0} L(F_2 - F_4) \\ L(F_3 - F_1) \\ M_1 - M_2 + M_3 - M_4 \end{array}\right] - \left[\begin{array}{0} p \\ q \\ r \end{array}\right] \times I\left[\begin{array}{0} p \\ q \\ r \end{array}\right]
+\[ I\left[\begin{array}{0} \dot{p} \\ \dot{q} \\ \dot{r} \end{array}\right] = \left[\begin{array}{0} L(F_2 - F_4) \\ L(F_3 - F_1) \\ M_1 - M_2 + M_3 - M_4 \end{array}\right]
 \]
 
 \[ u_2 = \left[\begin{array}{c} k_{p,\phi}(\phi_c - \phi) + k_{d, \phi}(p_c - p) \\ k_{p,\theta}(\theta_c - \theta) + k_{d, \theta}(q_c - q) \\ k_{p,\psi}(\psi_c - \psi) + k_{d, \psi}(r_c - r)\end{array} \right] \]
@@ -229,11 +229,10 @@ Hence,
 \textbf{Figure 9. Quadcopter: Albatross.}\end{center}\\
 \subsection{Configuration}
 \begin{itemize}
-    \item Raspberry Pi : High Level Controller
+    \item Odroid XU4 : High Level Controller
     \item APM : Low Level Controller
     \item ESC     : Electronic Speed Controller, 45A OPTO
-    \item LiPo     : To power the motors - 11.1V, 3s, 5000mAh, 20C
-    \item Power Bank, to power Raspberry Pi: 4500mAh
+    \item LiPo     : 11.1V, 3s, 5000mAh, 20C
     \item Motors: 850kv BLDC
     \item Propellers : 11” x 4.7”
     \item Camera : 30fps, Field of View - 78 degrees, Aspect Ratio - 16:9
@@ -267,14 +266,14 @@ Hence,
 \textbf{Figure 10. Herding algorithm visualization.}\end{center}\\
 Assumption: Our robot is faster than the ground robots.
 
-\section{HARDWARE KILL SWITCH}
-As required in the competition, we have a hardware independent safety mechanism to act as a kill switch in case 
-of an emergency. The kill switch is based on an Arduino Nano with an exclusive wireless interface (XBee) that cuts 
-power to the electronic speed controllers. 
+\section{EMERGENCY KILL SWITCH}
+We have three level of control on the quadcopter: Wifi-software, standard Radio Control link and "IARC Common Kill Switch"[17] as given in IARC website.
+As required in the competition, we have a hardware independent safety mechanism to act as a kill switch in case of an emergency that will cut power
+to the electronic speed controllers. RC control link can be used for manual override control of the quadcopter or to change ArduCopter mode to LAND, while the same can be achieved by mavros commands over Wifi link to the on-board computer. 
 
 \section{TRUE VALUE SETUP}
-Setup of a ground truth system is essential to register ground truth data. Obtained data can be used to evaluate, test and benchmark algorithms related to localization, mapping and motion planning in Quad-rotors. This setup should be robust to illumination changes, shadows and arena modifications. Such setup would even help in many different strategies to work upon further, like tracking of system, game strategies and for easy debugging. \\ \\
-Depth perception from conventional stereo vision is based on the triangulation principle as mentioned. [1, 2, 6, 8, 9]. The 3D position of quad-rotor can be obtained by the intersection of the two rays passing through the camera optical centers and its 2D projections in each image, but object disparity is an important cue for position estimation. We use two cameras arranged on a baseline, such that their view fields overlap at the desired object distance. By taking a picture with each camera, we capture the scene from two different viewpoints. Hence, a correspondence needs to be established between two images regions that correspond to some physical feature in space. Then the depth can be reconstructed using triangulation, which is discussed further. \\ \\
+Setup of a ground truth system is essential to register ground truth data. Obtained data can be used to evaluate, test and benchmark algorithms related to localization, mapping and motion planning in quadcopters. This setup should be robust to illumination changes, shadows and arena modifications. Such setup would even help in many different strategies to work upon further, like tracking of system, game strategies and for easy debugging. \\ \\
+Depth perception from conventional stereo vision is based on the triangulation principle as mentioned. [1, 2, 6, 8, 9]. The 3D position of quadcopter can be obtained by the intersection of the two rays passing through the camera optical centers and its 2D projections in each image, but object disparity is an important cue for position estimation. We use two cameras arranged on a baseline, such that their view fields overlap at the desired object distance. By taking a picture with each camera, we capture the scene from two different viewpoints. Hence, a correspondence needs to be established between two images regions that correspond to some physical feature in space. Then the depth can be reconstructed using triangulation, which is discussed further. \\
 We use April Tags[16] placed on the quadcopter to track it.
 \begin{center}\includegraphics{image42} \\
 \textbf{Figure 11. Left and right Camera Calibration using 9*6 checkerboard}\end{center}\\
@@ -285,17 +284,18 @@ We use April Tags[16] placed on the quadcopter to track it.
     \item Fundamentals of Aerodynamics by John David Anderson, McGraw-Hill Publication.
     \item Engineer's Aerodynamics by S. M. Yahya, John wiley & sons publication. 
     \item P. Pounds, R. Mahony, and P. Corke, “Modelling and Control of a Large Quadrotor Robot,” in Control Engineering Practice, vol. 18, pp. 691 – 699, 2010. 
-    \item P. Pounds and R. Mahony, “Design principles of large quadrotors for practical applications,” in Proceedings of the IEEE International Conference on Robotics and Automation (ICRA), pp. 3265 –3270, May 2009. 
+    \item \href{http://ieeexplore.ieee.org/iel5/5076472/5152175/05152390.pdf?arnumber=5152390}{P. Pounds and R. Mahony, “Design principles of large quadrotors for practical applications,” in Proceedings of the IEEE International Conference on Robotics and Automation (ICRA), pp. 3265 –3270, May 2009.}
     \item R. S. Samir Bouabdallah, Pierpaolo Murrieri Autonomous Robots, vol. 18, Mar 2005.
     \item J. Irizarry, M. Gheisari and B. Walker, “Usability assessment of drone technology as safety inspection tools” in Journal of Information Technology in Construction, Sept 2012. 
     \item T. Iwai, A. Nunnikhoven, E. Rodger, E. Roggatz, P. Rose and J. Warning, “Quadcopter with collective and cyclic control” in Iowa State University, Project Design, Fall 2010. 
     \item Honig, Z. (2011) “T-Hawk UAV enters Fukushima danger zone, returns with video.” 6:48PM April 21, 2011, retrieved on April 22, 2011. 
-    \item Zibreg. C. (2011) “Awesome use of an iPad and the Parrot AR Drone.” 8:10 June 15, 2011, retrieved on June 15, 2011. http://9to5mac.com/2011/06/15/ awesome-use-of-an-ipad-and-the-parrot-ar-drone/. 
+    \item \href{http://9to5mac.com/2011/06/15/awesome-use-of-an-ipad-and-the-parrot-ar-drone/}{Zibreg. C. (2011) “Awesome use of an iPad and the Parrot AR Drone.”} 
     \item Faigl, J., Krajnik, T., Vonasek, V., and Preucil, L. (2010) “Surveillance planning with localization uncertainty for mobile robots.” 3rd Israeli Conference on Robotic. 
     \item Ng, W.S., and Sharlin, E. (2011) “Collocated interaction with flying robots.” Technical Report 2011-998-10, Department of Computer Science, University of Calgary, Calgary, Canada (2011). 
     \item Higuchi, K., Shimada, T., and Rekimoto, J. (2011) “Flying sports assistant: external visual imagery representation for sports training.” 2nd Augmented Human International Conference, New York, NY, USA, ACM 7:1–7:4.
-    \item T. S. Alderete, “Simulator aero model implementation.” NASA Ames Research Center, Moffett Field, California, http://www.aviationsystemsdivision. arc.nasa.gov/publications/hitl/rtsim/Toms.pdf. 
+    \item \href{http://www.aviationsystemsdivision.arc.nasa.gov/publications/hitl/rtsim/Toms.pdf}{T. S. Alderete, “Simulator aero model implementation.” NASA Ames Research Center, Moffett Field, California.}
     \item H. Bouadi and M. Tadjine, “Nonlinear observer design and sliding mode control of four rotors helicopter,” Proceedings of World Academy of Science, Engineering and Technology, vol. 25, pp. 225–230, 2007.
-    \item Edwin Olson, "AprilTag: A robust and flexible multi-purpose fiducial system", https://april.eecs.umich.edu/papers/details.php?name=olson2010tags
+    \item \href{https://april.eecs.umich.edu/papers/details.php?name=olson2010tags}{Edwin Olson, "AprilTag: A robust and flexible multi-purpose fiducial system"}
+    \item \href{http://www.aerialroboticscompetition.org/downloads/killswitch.zip}{The IARC common safety switch}
 \end{enumerate}
 \end{document}

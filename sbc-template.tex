@@ -9,18 +9,21 @@
 % UTF-8 encoding is recommended by ShareLaTex
 \sloppy
 
-\title{IIT Kharagpur, IARC Team Description Paper}
+\title{Indian Institute of Technology Kharagpur \\ 
+IARC Team Description Paper}
 
 \address{
-Aditya Agarwal, Gaurav Gardi, Kumar Ankit, Kumar Krishna Agarwal, \\
-Manash Pratim Das, Sairam K, Soumyadeep Mukherjee, Vishnu Sharma \\ 
-\textit{IIT Kharagpur, India}
+Aditya Agarwal, Soumyadeep Mukherjee, Manash Pratim Das,\\
+Gaurav Gardi, Sairam K, Kumar Ankit, Kumar Krishna Agarwal, \\
+Vishnu Sharma }\\ 
 }
 
 \begin{document}
 \maketitle
-\begin{abstract}
 \\
+
+\begin{abstract}
+
 \begin{center}\textbf{ABSTRACT}\end{center}
 This paper reports the current preparation strategy of Aerial Robotics Kharagpur,
 participating in IARC Mission 7 2016. Our main goal includes robust, indoor 
@@ -45,7 +48,7 @@ Gazebo, an open source robotics simulator is used to simulate the robot along wi
 the mathematical, physical and visualization model. It also emulates the environment 
 with the physics and other interactive robots. We have make ROS plugin for the behaviour 
 of i-robots, whereas the quadcopter model,
-is made on top of hector\_gazebo, supported by JSBSim, ArduCopter, RotorS, mavros,
+is made on top of hector\_gazebo, supported by JSBSim, ArduCopter, RotorS, MAVROS,
 ardupilot\_sitl\_gazebo plugin.
 
 \begin{center}\includegraphics[scale=0.5]{image23} \\
@@ -53,7 +56,11 @@ ardupilot\_sitl\_gazebo plugin.
 
 \section{OVERALL SYSTEM DESIGN}
 \begin{center}\includegraphics{image22} \\
-\textbf{Figure 2. The above is our system design.}\end{center}
+\textbf{Figure 2. The above is our system design.}\end{center} \\
+\begin{center}\includegraphics[scale=0.4]{ARK-System-flow-tdp} \\
+\textbf{Figure 3. The above is our ROS based framework.}\end{center}
+The diagram above shows the ROS packages, the ROS nodes inside them and the ROS topics they deal with.
+This is the software control part which runs on the onboard computer.
 
 \section{LOCALIZATION}
 For indoor localization of the quadcopter, we use optical flow and grid localization methods, 
@@ -66,15 +73,15 @@ an EKF/UKF state estimator that gives the estimated quadcopter pose.
   \item The image is acquired from the on-board cameras on the quadcopter.
   \item The lines in the image are first filtered out and isolated by using segmentation, implemented using the Canny edge detector. 
     \begin{center}\includegraphics{image25} \\
-    \textbf{Figure 3. Image before canny is applied.}\end{center}
+    \textbf{Figure 4. Image before canny is applied.}\end{center}
     
     \begin{center}\includegraphics{image24} \\
-    \textbf{Figure 4. Image after Canny edge detection is applied.}\end{center}
+    \textbf{Figure 5. Image after Canny edge detection is applied.}\end{center}
   \item Once Canny is applied, erosion and dilation is performed on the image to remove noise.
   \item The lines are identified by using a Hough transform on the image.  
   \item After the Hough transform is applied and the lines found, the intersection points of these lines are identified as nodes of the grid.
     \begin{center}\includegraphics{image27} \\
-    \textbf{Figure 5. Image after Hough transform is applied(on Canny filtered image).}\end{center}
+    \textbf{Figure 6. Image after Hough transform is applied(on Canny filtered image).}\end{center}
 \end{itemize}
 
 \subsubsection{Grid Following}
@@ -126,7 +133,7 @@ This is achieved by Line following.
 \section{OBSTACLE AVOIDANCE}
     IARC consists of moving obstacle robots which need to be avoided when they are on the way of the desired trajectory and path.
     \\ \\
-    Obstacles Description: 4 Ground Robots with Cylinders attached on top of them to form vertical moving obstacles.
+    Obstacles Description: 4 Ground Robots with cylinders attached on top of them to form vertical moving obstacles.
     \\ \\ 
     \textbf{Avoidance Algorithm Overview:} \\
     The Obstacle Avoidance in IARC does not need to be global as the number of obstacles are less in number. So, we use eight sharp sensors attached on all four arms and between two propellers which measures the distance between the sensor and nearest obstacle. If the obstacle is closer than a threshold then multiple kinds of action can be taken:
@@ -135,7 +142,7 @@ This is achieved by Line following.
         \item Avoid Obstacle by Creating a New Trajectory around the obstacle and come back to desired trajectory.
     \end{itemize}
     \begin{center}\includegraphics{image26} \\
-    \textbf{Figure 6. Placement of IR sensor on the quadcopter.}\end{center}\\
+    \textbf{Figure 7. Placement of IR sensor on the quadcopter.}\end{center}\\
 
         \subsubsection*{Procedure I:}
             \begin{itemize}
@@ -149,84 +156,20 @@ This is achieved by Line following.
             \end{itemize}
 
 \section{SYSTEM CONTROL}
-It is advisable for control design to simplify the model in order to comply with the real-time constraints of the embedded control loop. Hence, hub forces and rolling moments are neglected and thrust and drag coefficients are supposed constant. \\
-The system can be rewritten in state-space form \(X^{d} = f(X, U)\) with \(U\) inputs vector and \(X\) state vector chosen as follows:
-\[ X = [ \phi \quad \dot{\phi} \quad \theta \quad \dot{\theta} \quad \psi \quad \dot{\psi} \quad z \quad \dot{z} \quad x \quad \dot{x} \quad y \quad \dot{y}]^{T} \]
+\subsection{APM}
+    We have used APM which runs the ArduCopter-3.3 firmware. ArduCopter is a nearly feature-complete open source UAV firmware. Thus our high level control is utilizes the features of ArduCopter to its fullest. Since, most of ArduCopter’s autonomous features uses GPS, we used the APM in manual mode along with rc overrides mavlink messages to send signals to control the quadcopter. In this way APM thinks that the quadcopter is being controlled by an RC controller but actually it is controlled autonomously by an onboard computer.
+    
+\subsection{MAVROS}
+    Since APM communicates in Micro Air Vehicle Link(MAVLink) protocol and both our ground station and onboard computer uses Robot Operating System(ROS), we used MAVROS for communication between onboard computer and APM. MAVROS is a MAVLink extendable communication node for ROS.
+    
+    
+\subsection{PID control}
+    We have used a two layer PID. The low level control is being taken care of by the ArduCopter. The high level controller, to control position in three dimension and yaw is implemented using MAVROS, in a script which runs on the onboard computer. The scripts changes the mode of ArduCopter to “AltHold” mode and computes the RC Override signal which is the output of PID controller and sends it to the APM.
 
-Inputs Vector:
-\[ U = [U_1 \quad U_2 \quad U_3 \quad U_4] \]
 
-where the inputs are mapped by:
-\[U_1 = b(\Omega_1^2 + \Omega_2^2 + \Omega_3^2 + \Omega_4^2) \]
-\[U_2 = b(-\Omega_2^2 + \Omega_4^2)\]
-\[U_3 = b(\Omega_1^2 - \Omega_3^2)\]
-\[U_4 = d(-\Omega_1^2 + \Omega_2^2 - \Omega_3^2 + \Omega_4^2)\]
-
-\begin{center}\includegraphics{image30} \\
-\textbf{Figure 7. Co-ordinate system.}\end{center}\\
-
-\[f(X, U) = \left[ \begin{array}{c}
-                                    \dot{\phi} \\ 
-                                    \dot{\theta}\dot{\psi}a_1 + \dot{\theta}a_2\Omega_r + b_1U_2 \\
-                                    \dot{\theta} \\
-                                    \dot{\phi}\dot{\psi}a_3 - \dot{\psi}a_4\Omega_r + b_2U_3 \\
-                                    \dot{\psi} \\
-                                    \dot{\theta}\dot{\phi}a_5 + b_3U_4 \\
-                                    \dot{z} \\
-                                    g - (cos\phi cos\theta)\frac{1}{m} U_1 \\
-                                    \dot{x} \\
-                                    u_x\frac{1}{m} U_1 \\
-                                    \dot{y} \\
-                                    u_y\frac{1}{m} U_1
-            \end{array} \right] \]
-
-\[ a_1 = (I_y_y - I_z_z)/I_x_x\]
-\[ a_2 = J_r/I_x_X\]
-\[ a_3 = (I_z_z - I_x_x)/I_y_Y \]
-\[ a_4 = J_r/I_y_y \]
-\[ a_5 = (I_x_x - I_y_y)/I_z_z \]
-\[ b_1 = l/I_x_x \]
-\[ b_2 = l/I_y_y \]
-\[ b_3 = 1/I_z_z \]
-\\
-\[ u_x = cos\varphi sin\theta cos\Psi + sin\varphi sin\psi \]
-\[ u_y = cos\varphi sin\theta cos\Psi - sin\varphi sin\psi \]
-
-\[\left[ \begin{array}{c} p \\ q \\ r \end{array} \right] = \begin{bmatrix} c\theta & 0 & -c\phi s\theta \\ 0 & 1 & s\phi \\ s\theta & 0 & c\phi c\theta \end{bmatrix} \times \left[ \begin{array}{c} \dot{\phi} \\ \dot{\theta} \\ \dot{\psi} \end{array} \right]\] \\
-
-\subsubsection*{Angular velocity components in quadcopter frame}
-\[ r_T(t) = \left[\begin{array}{c} x(t) \\ y(t) \\ z(t) \\ \psi(t)  \end{array} \right] \]
-\[ e_p = r_T(t) - r \]
-\[ e_v = \dot{r}_T(t) - \dot{r}
-
-Let \(r = [x \quad y \quad z]^{T}\) and \( (\ddot{r}_T(t) - \ddot{r}_c) + k_{d,x}e_v + k_{p,x}e_p = 0 \)
-
-We want: $\ddot{r_c}$ : Commanded acceleration, calculated by controller.
-
-We have,
-\begin{center}\includegraphics[scale=0.5]{image38} \\
-\textbf{Figure 8. Control loop.}\end{center}\\
-
-\[ m \ddot{r} = \left[\begin{array}{c} 0 \\ 0 \\ -mg \end{array} \right] + R\left[\begin{array}{0} 0 \\ 0 \\ F_1 + F_2 + F_3 + F_4 \end{array} \right]\]
-
-\[ I\left[\begin{array}{0} \dot{p} \\ \dot{q} \\ \dot{r} \end{array}\right] = \left[\begin{array}{0} L(F_2 - F_4) \\ L(F_3 - F_1) \\ M_1 - M_2 + M_3 - M_4 \end{array}\right] - \left[\begin{array}{0} p \\ q \\ r \end{array}\right] \times I\left[\begin{array}{0} p \\ q \\ r \end{array}\right]
-\]
-
-\subsubsection*{Control for Hovering:}
-Linearized dynamics at the hover configuration
-\[ (u_1 \sim mg, \theta \sim 0, \phi \sim 0, \psi \sim \psi_0) \]
-\[ u_2 \sim 0, p \sim 0, q \sim 0, r \sim 0 \]
-\\
-
-Hence,
-\[ I\left[\begin{array}{0} \dot{p} \\ \dot{q} \\ \dot{r} \end{array}\right] = \left[\begin{array}{0} L(F_2 - F_4) \\ L(F_3 - F_1) \\ M_1 - M_2 + M_3 - M_4 \end{array}\right]
-\]
-
-\[ u_2 = \left[\begin{array}{c} k_{p,\phi}(\phi_c - \phi) + k_{d, \phi}(p_c - p) \\ k_{p,\theta}(\theta_c - \theta) + k_{d, \theta}(q_c - q) \\ k_{p,\psi}(\psi_c - \psi) + k_{d, \psi}(r_c - r)\end{array} \right] \]
-
-\section{IARC ROBOT: ALBATROSS DESCRIPTION}
+\section{IARC ROBOT DESCRIPTION}
 \begin{center}\includegraphics{image41} \\
-\textbf{Figure 9. Quadcopter: Albatross.}\end{center}\\
+\textbf{Figure 8. Our quadcopter.}\end{center}\\
 \subsection{Configuration}
 \begin{itemize}
     \item Odroid XU4 : High Level Controller
@@ -263,39 +206,38 @@ Hence,
     \item So we keep clearing the area and pushing the ground bots until they cross the green line.
 \end{itemize}
 \begin{center}\includegraphics[scale=0.7]{image28} \\
-\textbf{Figure 10. Herding algorithm visualization.}\end{center}\\
+\textbf{Figure 9. Herding algorithm visualization.}\end{center}\\
 Assumption: Our robot is faster than the ground robots.
 
 \section{EMERGENCY KILL SWITCH}
-We have three level of control on the quadcopter: Wifi-software, standard Radio Control link and "IARC Common Kill Switch"[17] as given in IARC website.
+We have three level of control on the quadcopter: Wifi-software, standard Radio Control link and "IARC Common Kill Switch"[16] as given in IARC website.
 As required in the competition, we have a hardware independent safety mechanism to act as a kill switch in case of an emergency that will cut power
-to the electronic speed controllers. RC control link can be used for manual override control of the quadcopter or to change ArduCopter mode to LAND, while the same can be achieved by mavros commands over Wifi link to the on-board computer. 
+to the electronic speed controllers. RC control link can be used for manual override control of the quadcopter or to change ArduCopter mode to LAND, while the same can be achieved by MAVROS commands over Wifi link to the on-board computer. 
 
 \section{TRUE VALUE SETUP}
 Setup of a ground truth system is essential to register ground truth data. Obtained data can be used to evaluate, test and benchmark algorithms related to localization, mapping and motion planning in quadcopters. This setup should be robust to illumination changes, shadows and arena modifications. Such setup would even help in many different strategies to work upon further, like tracking of system, game strategies and for easy debugging. \\ \\
 Depth perception from conventional stereo vision is based on the triangulation principle as mentioned. [1, 2, 6, 8, 9]. The 3D position of quadcopter can be obtained by the intersection of the two rays passing through the camera optical centers and its 2D projections in each image, but object disparity is an important cue for position estimation. We use two cameras arranged on a baseline, such that their view fields overlap at the desired object distance. By taking a picture with each camera, we capture the scene from two different viewpoints. Hence, a correspondence needs to be established between two images regions that correspond to some physical feature in space. Then the depth can be reconstructed using triangulation, which is discussed further. \\
-We use April Tags[16] placed on the quadcopter to track it.
+We use April Tags[15] placed on the quadcopter to track it.
 \begin{center}\includegraphics{image42} \\
-\textbf{Figure 11. Left and right Camera Calibration using 9*6 checkerboard}\end{center}\\
+\textbf{Figure 10. Left and right Camera Calibration using 9*6 checkerboard}\end{center}\\
 
 \section{References}
 \begin{enumerate}
-    \item Aerodynamics for Engineering Students by E. L. Houghton, P.W.Carpenter, Butterworth-Heinemann Publication.
-    \item Fundamentals of Aerodynamics by John David Anderson, McGraw-Hill Publication.
-    \item Engineer's Aerodynamics by S. M. Yahya, John wiley & sons publication. 
-    \item P. Pounds, R. Mahony, and P. Corke, “Modelling and Control of a Large Quadrotor Robot,” in Control Engineering Practice, vol. 18, pp. 691 – 699, 2010. 
-    \item \href{http://ieeexplore.ieee.org/iel5/5076472/5152175/05152390.pdf?arnumber=5152390}{P. Pounds and R. Mahony, “Design principles of large quadrotors for practical applications,” in Proceedings of the IEEE International Conference on Robotics and Automation (ICRA), pp. 3265 –3270, May 2009.}
-    \item R. S. Samir Bouabdallah, Pierpaolo Murrieri Autonomous Robots, vol. 18, Mar 2005.
-    \item J. Irizarry, M. Gheisari and B. Walker, “Usability assessment of drone technology as safety inspection tools” in Journal of Information Technology in Construction, Sept 2012. 
-    \item T. Iwai, A. Nunnikhoven, E. Rodger, E. Roggatz, P. Rose and J. Warning, “Quadcopter with collective and cyclic control” in Iowa State University, Project Design, Fall 2010. 
-    \item Honig, Z. (2011) “T-Hawk UAV enters Fukushima danger zone, returns with video.” 6:48PM April 21, 2011, retrieved on April 22, 2011. 
-    \item \href{http://9to5mac.com/2011/06/15/awesome-use-of-an-ipad-and-the-parrot-ar-drone/}{Zibreg. C. (2011) “Awesome use of an iPad and the Parrot AR Drone.”} 
-    \item Faigl, J., Krajnik, T., Vonasek, V., and Preucil, L. (2010) “Surveillance planning with localization uncertainty for mobile robots.” 3rd Israeli Conference on Robotic. 
-    \item Ng, W.S., and Sharlin, E. (2011) “Collocated interaction with flying robots.” Technical Report 2011-998-10, Department of Computer Science, University of Calgary, Calgary, Canada (2011). 
-    \item Higuchi, K., Shimada, T., and Rekimoto, J. (2011) “Flying sports assistant: external visual imagery representation for sports training.” 2nd Augmented Human International Conference, New York, NY, USA, ACM 7:1–7:4.
-    \item \href{http://www.aviationsystemsdivision.arc.nasa.gov/publications/hitl/rtsim/Toms.pdf}{T. S. Alderete, “Simulator aero model implementation.” NASA Ames Research Center, Moffett Field, California.}
-    \item H. Bouadi and M. Tadjine, “Nonlinear observer design and sliding mode control of four rotors helicopter,” Proceedings of World Academy of Science, Engineering and Technology, vol. 25, pp. 225–230, 2007.
-    \item \href{https://april.eecs.umich.edu/papers/details.php?name=olson2010tags}{Edwin Olson, "AprilTag: A robust and flexible multi-purpose fiducial system"}
+    \item \href{https://books.google.co.in/books?id=4YCThwzeTBQC&redir_esc=y}{"Aerodynamics for Engineering Students". E. L. Houghton, P.W.Carpenter.}
+    \item \href{https://books.google.co.in/books/about/Fundamentals_of_Aerodynamics.html?id=CaBTAAAAMAAJ}{"Fundamentals of Aerodynamics". John David Anderson.}
+    \item \href{https://books.google.co.in/books/about/Fundamentals_of_Compressible_Flow.html?id=_NCz9iZIugYC}{"Engineer's Aerodynamics". S. M. Yahya.}
+    \item \href{http://eprints.qut.edu.au/33732/1/cep2009_modelling_and_control_paper_sub_final.pdf}{"Modelling and Control of a Large Quadrotor Robot". P. Pounds, R. Mahony, and P. Corke.}
+    \item \href{http://ieeexplore.ieee.org/iel5/5076472/5152175/05152390.pdf?arnumber=5152390}{"Design principles of large quadrotors for practical applications," P. Pounds and R. Mahony}
+    \item \href{https://www.researchgate.net/publication/220474158_Towards_autonomous_indoor_micro_VTOL}{"Towards autonomous indoor micro VTOL". Samir Bouabdallah, Samir Bouabdallah and Roland Siegwart.}
+    \item \href{http://www.itcon.org/cgi-bin/works/Show?2012_12}{"Usability assessment of drone technology as safety inspection tools". Javier Irizarry, Masoud Gheisari and Bruce N. Walker, Associate.}
+    \item \href{http://www.engadget.com/2011/04/21/t-hawk-uav-enters-fukushima-danger-zone-returns-with-video/}{Honig, Z. (2011) "T-Hawk UAV enters Fukushima danger zone, returns with video." 6:48PM April 21, 2011, retrieved on April 22, 2011.}
+    \item \href{http://9to5mac.com/2011/06/15/awesome-use-of-an-ipad-and-the-parrot-ar-drone/}{Zibreg. C. (2011) "Awesome use of an iPad and the Parrot AR Drone."} 
+    \item \href{http://robotics.felk.cvut.cz/faiglj/thesis/papers/icr10.pdf}{"Surveillance Planning with Localization Uncertainty for UAVs". Jan Faigl,  T Krajnık,  V Vonásek,  L Preucil} 
+    \item \href{http://ieeexplore.ieee.org/xpl/articleDetails.jsp?reload=true&arnumber=6005280}{"Collocated interaction with flying robots". Wai Shan Ng and Ehud Sharlin} 
+    \item \href{https://www.researchgate.net/publication/220947254_Flying_sports_assistant_External_visual_imagery_representation_for_sports_training}{"Flying sports assistant: external visual imagery representation for sports training." Higuchi, K., Shimada, T., and Rekimoto, J.}
+    \item \href{http://www.aviationsystemsdivision.arc.nasa.gov/publications/hitl/rtsim/Toms.pdf}{"Simulator aero model implementation." T. S. Alderete, NASA Ames Research Center, Moffett Field, California.}
+    \item \href{https://www.researchgate.net/publication/228962656_Nonlinear_observer_design_and_sliding_mode_control_of_four_rotor_helicopter}{“Nonlinear observer design and sliding mode control of four rotors helicopter”. H. Bouadi and M. Tadjine} 
+    \item \href{https://april.eecs.umich.edu/papers/details.php?name=olson2010tags}{"AprilTag: A robust and flexible multi-purpose fiducial system". Edwin Olson}
     \item \href{http://www.aerialroboticscompetition.org/downloads/killswitch.zip}{The IARC common safety switch}
 \end{enumerate}
 \end{document}

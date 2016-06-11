@@ -9,8 +9,8 @@
 % UTF-8 encoding is recommended by ShareLaTex
 \sloppy
 
-\title{Indian Institute of Technology Kharagpur \\ 
-IARC Team Description Paper}
+\title{Team Description Paper of \\
+Indian Institute of Technology Kharagpur for IARC}
 
 \address{
 Aditya Agarwal, Soumyadeep Mukherjee, Manash Pratim Das,\\
@@ -41,7 +41,8 @@ mission 7. Our team was organized into two major domains, which are "controls"
 and "software". Keeping Robotics Operating System (ROS) as the base we developed 
 our simulation environment in ROS and Gazebo in order to speed up the software 
 development and testing while the hardware gets ready. As mission 7 is based 
-indoor, hence we made April Tags based indoor true value setup.
+indoor, hence we made April Tags based indoor true value setup. We have a website[18] 
+and a GitHub Organization[19].
 
 \section{SIMULATION}
 Gazebo, an open source robotics simulator is used to simulate the robot along with 
@@ -92,6 +93,10 @@ This is achieved by Line following.
     \item It then traverses the grid by following the lines connecting these nodes, keeping either x coordinate or y coordinate constant while following each line.
     \item At each node, commands are sent to the robot to turn left, right or to move forward or backward to traverse the lines as described above.
 \end{itemize}
+
+\subsection{Optical Flow}
+We are using px4flow optical flow sensor, which is interfaced to the onboard computer through USB. We use px4flow\_node[17], to get the optical values that are fed to the state estimation package. The quadcopter's position given by optical flow is further corrected by that given by the grid localization. 
+
 
 \section{GROUND ROBOT DETECTION AND TRACKING}
     \subsection{Detection}
@@ -221,6 +226,37 @@ We use April Tags[15] placed on the quadcopter to track it.
 \begin{center}\includegraphics{image42} \\
 \textbf{Figure 10. Left and right Camera Calibration using 9*6 checkerboard}\end{center}\\
 
+\section{TESTING}
+\begin{center}\includegraphics[scale=0.7]{ARK-lab-kgp1} \\
+\textbf{Figure 11. Sample testing arena}\end{center}\\
+We have an indoor testing arena with sample grid floor as in IARC arena and two iRobots. We have safety harness to 
+tie up the quadcopter while testing various controls and PID tuning. \\
+We tested the AI (Herding) algorithms on the simulator. We tied the quadcopter with various allowed degree of 
+freedom to test altitude hold, yaw hold, node hold and grid following algorithms on the real quadcopter in our arena.
+\\
+We tested various quadcopter frames, onboard computers, flight control boards, cameras and other hardware components 
+like motors, electronic speed controllers, power distribution system etc. The following are a the combinations we tested.
+\\
+
+
+\begin{center}
+\begin{tabular}{ |c|c|c| }
+ \hline
+  & \includegraphics[scale=0.3]{image01-2} & \includegraphics[scale=0.3]{image08-1} \\
+ \textbf{Frame} & Wooden X Frame & Plastic X Frame \\
+ \textbf{Processor} & Raspberry Pi & Odroid XU4 \\
+ \textbf{Controller} & Arduino NANO & Pixhawk \\
+ \textbf{IMU} & GY87 & Pixhawk inbuilt\\
+ \textbf{ESC} & 30A BEC & 40A BEC\\
+ \textbf{Battery} & LiPo:11.1V, 3s, 5000mAh, 20C & LiPo: 14.8V, 3s, 5000mAh, 20C \\
+ \textbf{Motors} & 1000kv BLDC & 980kv BLDC \\
+ \textbf{Propellers} & 10” x 4.5” & 11” x 4.7” \\
+ \textbf{Protocol} & MultiWii & Mavlink\\
+ \textbf{Payload} & 600gms & 400gms \\
+ \hline
+\end{tabular}
+\end{center}
+
 \section{References}
 \begin{enumerate}
     \item \href{https://books.google.co.in/books?id=4YCThwzeTBQC&redir_esc=y}{"Aerodynamics for Engineering Students". E. L. Houghton, P.W.Carpenter.}
@@ -239,5 +275,8 @@ We use April Tags[15] placed on the quadcopter to track it.
     \item \href{https://www.researchgate.net/publication/228962656_Nonlinear_observer_design_and_sliding_mode_control_of_four_rotor_helicopter}{“Nonlinear observer design and sliding mode control of four rotors helicopter”. H. Bouadi and M. Tadjine} 
     \item \href{https://april.eecs.umich.edu/papers/details.php?name=olson2010tags}{"AprilTag: A robust and flexible multi-purpose fiducial system". Edwin Olson}
     \item \href{http://www.aerialroboticscompetition.org/downloads/killswitch.zip}{The IARC common safety switch}
+    \item \href{http://wiki.ros.org/px4flow_node}{px4flow\_node}
+    \item \href{http://quadrotor-iitkgp.github.io/}{Aerial Robotics Kharagpur: Website}
+    \item \href{https://github.com/quadrotor-IITKgp}{Aerial Robotics Kharagpur: GitHub organization}
 \end{enumerate}
 \end{document}

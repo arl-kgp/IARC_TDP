@@ -6,25 +6,42 @@
 \BOOKMARK [3][-]{subsubsection.4.1.1}{Detecting the Grid}{subsection.4.1}% 6
 \BOOKMARK [3][-]{subsubsection.4.1.2}{Orientation and Cell Localisation}{subsection.4.1}% 7
 \BOOKMARK [3][-]{subsubsection.4.1.3}{Grids Localization}{subsection.4.1}% 8
-\BOOKMARK [1][-]{section.5}{GROUND ROBOT DETECTION AND TRACKING}{}% 9
-\BOOKMARK [2][-]{subsection.5.1}{Detection}{section.5}% 10
-\BOOKMARK [3][-]{subsubsection.5.1.1}{Ellipse Detection}{subsection.5.1}% 11
-\BOOKMARK [3][-]{subsubsection.5.1.2}{YOLO Based Object Detection}{subsection.5.1}% 12
-\BOOKMARK [2][-]{subsection.5.2}{Position Estimation}{section.5}% 13
-\BOOKMARK [2][-]{subsection.5.3}{Tracking of Multiple Robots}{section.5}% 14
-\BOOKMARK [1][-]{section.6}{OBSTACLE AVOIDANCE}{}% 15
-\BOOKMARK [1][-]{section.7}{SYSTEM CONTROL}{}% 16
-\BOOKMARK [2][-]{subsection.7.1}{Pixhawk}{section.7}% 17
-\BOOKMARK [2][-]{subsection.7.2}{MAVROS}{section.7}% 18
-\BOOKMARK [2][-]{subsection.7.3}{Ground Robot Tapping}{section.7}% 19
-\BOOKMARK [1][-]{section.8}{IARC ROBOT DESCRIPTION}{}% 20
-\BOOKMARK [2][-]{subsection.8.1}{Configuration}{section.8}% 21
-\BOOKMARK [1][-]{section.9}{HERDING ALGORITHM AI}{}% 22
-\BOOKMARK [2][-]{subsection.9.1}{Greedy Method}{section.9}% 23
-\BOOKMARK [1][-]{section.10}{EMERGENCY KILL SWITCH}{}% 24
-\BOOKMARK [1][-]{section.11}{TESTING}{}% 25
-\BOOKMARK [1][-]{section.12}{State Machine}{}% 26
-\BOOKMARK [2][-]{subsection.12.1}{States}{section.12}% 27
-\BOOKMARK [2][-]{subsection.12.2}{Working}{section.12}% 28
-\BOOKMARK [2][-]{subsection.12.3}{Rules}{section.12}% 29
-\BOOKMARK [1][-]{section.13}{References}{}% 30
+\BOOKMARK [1][-]{section.5}{GROUND ROBOT DETECTION}{}% 9
+\BOOKMARK [2][-]{subsection.5.1}{Using Downward Facing Camera}{section.5}% 10
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Preprocessing the Image}{subsection.5.1}% 11
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Circle Detection}{subsection.5.1}% 12
+\BOOKMARK [3][-]{subsubsection.5.1.3}{Colour Thresholding}{subsection.5.1}% 13
+\BOOKMARK [3][-]{subsubsection.5.1.4}{Position and Orientation Estimation}{subsection.5.1}% 14
+\BOOKMARK [2][-]{subsection.5.2}{Using Front Facing Camera}{section.5}% 15
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Color Thresholding}{subsection.5.2}% 16
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Detection}{subsection.5.2}% 17
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Position estimation}{subsection.5.2}% 18
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Orientation Estimation}{subsection.5.2}% 19
+\BOOKMARK [1][-]{section.6}{ACTIVE LOCALISATION}{}% 20
+\BOOKMARK [2][-]{subsection.6.1}{Tracking of Robots}{section.6}% 21
+\BOOKMARK [2][-]{subsection.6.2}{Predict Stage}{section.6}% 22
+\BOOKMARK [2][-]{subsection.6.3}{Update Stage}{section.6}% 23
+\BOOKMARK [2][-]{subsection.6.4}{Handling Tapping and Collisions}{section.6}% 24
+\BOOKMARK [1][-]{section.7}{OBSTACLE AVOIDANCE}{}% 25
+\BOOKMARK [1][-]{section.8}{SYSTEM CONTROL}{}% 26
+\BOOKMARK [2][-]{subsection.8.1}{Pixhawk}{section.8}% 27
+\BOOKMARK [2][-]{subsection.8.2}{MAVROS}{section.8}% 28
+\BOOKMARK [2][-]{subsection.8.3}{Ground Robot Tapping}{section.8}% 29
+\BOOKMARK [1][-]{section.9}{IARC ROBOT DESCRIPTION}{}% 30
+\BOOKMARK [2][-]{subsection.9.1}{Configuration}{section.9}% 31
+\BOOKMARK [3][-]{subsubsection.9.1.1}{Hex Frame}{subsection.9.1}% 32
+\BOOKMARK [3][-]{subsubsection.9.1.2}{Motor mounts and other reinforced parts}{subsection.9.1}% 33
+\BOOKMARK [3][-]{subsubsection.9.1.3}{Main stand and Tapping plate}{subsection.9.1}% 34
+\BOOKMARK [3][-]{subsubsection.9.1.4}{Gimbal and Cameras}{subsection.9.1}% 35
+\BOOKMARK [2][-]{subsection.9.2}{Emergency Kill Switch}{section.9}% 36
+\BOOKMARK [1][-]{section.10}{HERDING ALGORITHM AI}{}% 37
+\BOOKMARK [2][-]{subsection.10.1}{Greedy Method}{section.10}% 38
+\BOOKMARK [3][-]{subsubsection.10.1.1}{Searching}{subsection.10.1}% 39
+\BOOKMARK [3][-]{subsubsection.10.1.2}{Following}{subsection.10.1}% 40
+\BOOKMARK [3][-]{subsubsection.10.1.3}{Directing\(bump or tap\)}{subsection.10.1}% 41
+\BOOKMARK [1][-]{section.11}{TESTING}{}% 42
+\BOOKMARK [1][-]{section.12}{State Machine}{}% 43
+\BOOKMARK [2][-]{subsection.12.1}{States}{section.12}% 44
+\BOOKMARK [2][-]{subsection.12.2}{Working}{section.12}% 45
+\BOOKMARK [2][-]{subsection.12.3}{Rules}{section.12}% 46
+\BOOKMARK [1][-]{section.13}{References}{}% 47

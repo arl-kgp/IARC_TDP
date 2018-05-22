@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.30)  23 MAY 2018 01:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.30)  23 MAY 2018 02:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1746,24 +1746,24 @@ or  <return>  to continue without it.
 
 [10 <./hex.jpg>]
 ! Double subscript.
-l.340 ... cycle(T) the controller MOSFET has $V_g_
+l.344 ... cycle(T) the controller MOSFET has $V_g_
                                                   s$<$V_t_h$ and will go in ...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
-l.340 ...) the controller MOSFET has $V_g_s$<$V_t_
+l.344 ...) the controller MOSFET has $V_g_s$<$V_t_
                                                   h$ and will go in cutoff r...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 340--341
+Underfull \hbox (badness 10000) in paragraph at lines 344--345
 
  []
 
 <kill.JPG, id=272, 709.4505pt x 310.761pt>
 File: kill.JPG Graphic file (type jpg)
  <use kill.JPG>
-Package pdftex.def Info: kill.JPG used on input line 342.
+Package pdftex.def Info: kill.JPG used on input line 346.
 (pdftex.def)             Requested size: 283.77516pt x 124.30219pt.
 
 
@@ -1773,7 +1773,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.343 \textbf{Kill Switch Circuit}\\ \\
+l.347 \textbf{Kill Switch Circuit}\\ \\
                                        
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1786,7 +1786,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.346 \item
+l.350 \item
             Above a particular duty cycle(T) the controller MOSFET has $V_g_...
 
 Your command was ignored.
@@ -1794,29 +1794,29 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 ! Double subscript.
-l.346 ... cycle(T) the controller MOSFET has $V_g_
+l.350 ... cycle(T) the controller MOSFET has $V_g_
                                                   s$>$V_t_h$ and will go in ...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
-l.346 ...) the controller MOSFET has $V_g_s$>$V_t_
+l.350 ...) the controller MOSFET has $V_g_s$>$V_t_
                                                   h$ and will go in saturati...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
-l.346 ... as a result rest MOSFETs will have $V_g_
+l.350 ... as a result rest MOSFETs will have $V_g_
                                                   s$ = 0V due to potential d...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 [11 <./kill.JPG>]
-Underfull \hbox (badness 10000) in paragraph at lines 386--387
+Underfull \hbox (badness 10000) in paragraph at lines 390--391
 
  []
 
 <ARK-lab-kgp1.jpg, id=278, 401.5pt x 297.11pt>
 File: ARK-lab-kgp1.jpg Graphic file (type jpg)
  <use ARK-lab-kgp1.jpg>
-Package pdftex.def Info: ARK-lab-kgp1.jpg used on input line 413.
+Package pdftex.def Info: ARK-lab-kgp1.jpg used on input line 417.
 (pdftex.def)             Requested size: 281.04808pt x 207.97557pt.
  [12]
 
@@ -1826,7 +1826,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.415 W
+l.419 W
        e have an indoor testing arena with sample grid floor as in IARC aren...
 
 Your command was ignored.
@@ -1836,7 +1836,7 @@ or  <return>  to continue without it.
 <st_mcn.jpg, id=284, 783.92876pt x 1143.27126pt>
 File: st_mcn.jpg Graphic file (type jpg)
  <use st_mcn.jpg>
-Package pdftex.def Info: st_mcn.jpg used on input line 436.
+Package pdftex.def Info: st_mcn.jpg used on input line 440.
 (pdftex.def)             Requested size: 313.56595pt x 457.3004pt.
  [13 <./ARK-lab-kgp1.jpg>]
 
@@ -1846,7 +1846,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.438 \item
+l.442 \item
            {Strategy state tries to analyze the different states of the bot ...
 
 Your command was ignored.
@@ -1857,23 +1857,23 @@ or  <return>  to continue without it.
 AED: lastpage setting LastPage
 [15]
 
-! LaTeX Error: \begin{itemize} on input line 353 ended by \end{document}.
+! LaTeX Error: \begin{itemize} on input line 357 ended by \end{document}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.481 \end{document}
+l.485 \end{document}
                     
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 481.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 481.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 485.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 485.
 (./sbc-template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 481.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 481.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 485.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 485.
 Package rerunfilecheck Info: File `sbc-template.out' has not changed.
 (rerunfilecheck)             Checksum: 91DB8C1EEE47D8B5527C51A4EA5D4BBA;3165.
 
@@ -1881,11 +1881,11 @@ Package rerunfilecheck Info: File `sbc-template.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.28pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 481.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 485.
  )
 (\end occurred inside a group at level 1)
 
-### semi simple group (level 1) entered at line 353 (\begingroup)
+### semi simple group (level 1) entered at line 357 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
  7505 strings out of 494910
@@ -1908,7 +1908,7 @@ onts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on sbc-template.pdf (15 pages, 4305073 bytes).
+Output written on sbc-template.pdf (15 pages, 4305170 bytes).
 PDF statistics:
  657 PDF objects out of 1000 (max. 8388607)
  383 compressed objects within 4 object streams

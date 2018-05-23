@@ -53,11 +53,11 @@ and a GitHub Organization[19].
 Gazebo, an open source robotics simulator is being used to simulate the robot along with its mathematical, physical and visualization model.It also emulates the environment with the physics and other interactive robots.We have made ROS plugin for the behaviour of i-robots, whereas the quadcopter model,
 is made on top of hector\_gazebo, supported by JSBSim, ArduCopter, RotorS,MAVROS,ardupilot\_sitl\_gazebo plugin. For simulations on Pixhawk, we used PX4 SITL after interfacing it with ROS.
 \begin{center}\includegraphics[scale=0.15]{sim} \\
-\textbf{Figure 1. Gazebo Simulator.}\end{center}
+\textbf{Gazebo Simulator.}\end{center}
 
 \section{OVERALL SYSTEM DESIGN}
 \begin{center}\includegraphics[scale=0.5]{image22} \\
-\textbf{Figure 2. System design}\end{center} \\
+\textbf{System design}\end{center} \\
 
 \section{LOCALIZATION}
 We propose a monocular visual localization algorithm over grid-lines algorithm for indoor  localization  of  Micro  Aerial Vehicles  (MAVs)  that  is  accurate  and  computationally  fast for  real-time  on-board  processing. The algorithm  explicitly models  the  grid-lines  and  uses  probabilistic  clustering  and labeling  method  to  fit  observed  grid-lines  to  the  model.  A Random sample consensus (RANSAC) method is used to detect outliers and reject the false positive lines before fitting the model.It performs a five degree of freedom (5DoF) localization (position along X, Y, Z axis, roll and pitch) relative to  the  grid-based  floor  in  a  two-step  sequential  process.  The first step involves localizing the MAV within a unit grid cell. Since a grid is a 2D plane of repeating unit cells (rectangles),the  unit  cells  cannot  be  differentiated  from  each  other  when only a partial grid is visible. Hence, the relative positions are integrated using a winner take all (WTA) method in the second stage  to  determine  the  position  estimate  over  the  grid-based floor.\\
@@ -297,12 +297,14 @@ Calculating the desired coordinates for the MAV,
  
 $X_q^’$ = $X_g + ut_0cos(\theta)$
 
-$Y_q^’$  = $Y_g + ut_0sin(\theta)$ \\
+$Y_q^’$  = $Y_g + ut_0sin(\theta)$ 
+\begin{center}\includegraphics[scale=0.15]{tapping} \\
+\textbf{Tapping on the ground robot in gazebo simulator}\end{center}
     As soon as the MAV reaches these desired coordinates, it starts descending, vertically. In the same time the ground bot reaches these desired coordinates, making the tap successful. 
     Our only assumption in the method is that the velocity of MAV is greater than the velocity of ground bot. It is ensured by the low level controller that this condition is always satisfied.
 \section{IARC ROBOT DESCRIPTION}
 \begin{center}\includegraphics[scale=0.15]{hex} \\
-\textbf{Figure 8. Hexcopter}\end{center}\\
+\textbf{Hexcopter}\end{center}\\
 \subsection{Configuration}
 \begin{itemize}
 	\item A carbon-fiber Hex-rotor frame
